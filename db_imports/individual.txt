@@ -1,5 +1,0 @@
-1|James Bond|james.bond@case.edu|7|Philosophy|2016-05-22|112.20|5.5|1
-2|Master Chief|jmc117@case.edu|117|Accounting|2015-12-20|0|2|2
-3|Abraham Lincoln|honest.abe@aol.com|16|Civil Engineering|2016-05-22|50.55|1.5|2
-4|Chuck Norris|cfn@case.edu|1|Mathematics|2017-05-22|0|0|0
-5|John Ronal Ruel Tolkien|jrt4@case.edu|9|Nursing|2016-05-22|75.00|3|1
