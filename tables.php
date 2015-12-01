@@ -4,10 +4,13 @@ include('dbconnect.php');
 
 $tables = array(
 	"0" => "Individual",
-	"1" => "Attendance",
-	"2" => "Service",
-	"3" => "Philanthropy",
-	"4" => "Officer",
+	"1" => "ServiceEvent",
+	"2" => "AttendsService",
+	"3" => "PhilanthropyEvent",
+	"4" => "AttendsPhilanthropy",
+	"5" => "Meeting",
+	"6" => "AttendsMeeting",
+	"7" => "Officer",
 );
 foreach ($tables as $table) {
 	echo "<h2>$table:</h2>";
