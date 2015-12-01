@@ -8,11 +8,11 @@ if (!$member) {
 else {
 	echo '<h2>Personal Information</h2>';
 	echo '<form action="member-update.php" method="post">';
-	$query = 'SELECT * FROM Individual WHERE i_id="' . $member . '"';
+	$query = 'SELECT * FROM Individual WHERE iid="' . $member . '"';
 	$result = mysqli_query($link, $query);
 	$row = mysqli_fetch_assoc($result);
-	$i_id = $row['i_id'];
-	echo '<input name="id" type="hidden" value="' . $i_id . '"/>';
+	$iid = $row['iid'];
+	echo '<input name="id" type="hidden" value="' . $iid . '"/>';
 	echo 'name: ';
 	echo '<input name="name" type="text" value="' . $row['name'] . '"/>';
 	echo '<br/>';
@@ -37,7 +37,7 @@ else {
 	echo '<form action="member-service.php" method="post">';
 	$query = "SELECT SUM(hours) AS sum " .
 			 "FROM AttendsService " .
-			 "WHERE i_id=" . $i_id . " AND approval_status='Approved'";
+			 "WHERE iid=" . $iid . " AND approval_status='Approved'";
 	$result = mysqli_query($link, $query);
 	$service = 0;
 	if ($result) {
@@ -52,7 +52,7 @@ else {
 	echo '<form action="member-philanthropy.php" method="post">';
 	$query = "SELECT COUNT(*) AS total " .
 			 "FROM AttendsPhilanthropy " .
-			 "WHERE i_id=" . $i_id . " AND approval_status='Approved'";
+			 "WHERE iid=" . $iid . " AND approval_status='Approved'";
 	$result = mysqli_query($link, $query);
 	$philanthropy = 0;
 	if ($result) {
