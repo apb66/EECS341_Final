@@ -42,7 +42,6 @@ else {
 		if ($result) {
 			$success = 1;
 			while ($row = mysqli_fetch_assoc($result)) {
-				var_dump($row);
 				$status = mysqli_real_escape_string($link, stripslashes($_POST[$row['iid'] . ',' . $row['sid']]));
 				if (!is_null($status)) {
 					if ($status == "approved") {

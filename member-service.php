@@ -13,7 +13,7 @@ else {
 	}
 	else {
 		echo '<form action="member-submit.php" method="post">';
-		echo '<input name="i_id" type="hidden" value="' . $iid . '"</input>';
+		echo '<input name="iid" type="hidden" value="' . $iid . '"</input>';
 		echo '<input name="type" type="hidden" value="service"</input>';
 		echo "Event: ";
 		echo '<select name="sid">';

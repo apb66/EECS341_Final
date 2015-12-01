@@ -7,14 +7,14 @@ if (!$type) {
 }
 else {
 	if ($type == "service") {
-		$i_id = mysqli_real_escape_string($link, stripslashes($_POST['i_id']));
-		$s_id = mysqli_real_escape_string($link, stripslashes($_POST['s_id']));
+		$iid = mysqli_real_escape_string($link, stripslashes($_POST['iid']));
+		$sid = mysqli_real_escape_string($link, stripslashes($_POST['sid']));
 		$hours = mysqli_real_escape_string($link, stripslashes($_POST['hours']));
-		$query = "SELECT i_id from Individual";
+		$query = "SELECT iid from Individual";
 		$result = mysqli_query($link, $query);
-		if ($i_id && $s_id && $hours) {
-			$query = "INSERT INTO AttendsService (i_id, s_id, hours, approval_status) " .
-					 "VALUES($i_id, $s_id, $hours, \"New\")";
+		if ($iid && $sid && $hours) {
+			$query = "INSERT INTO AttendsService (iid, sid, hours, approval_status) " .
+					 "VALUES($iid, $sid, $hours, \"New\")";
 			$result = mysqli_query($link, $query);
 			if ($result) {
 				echo "Successfully submitted hours.<br>";
