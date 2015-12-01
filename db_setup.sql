@@ -123,3 +123,18 @@ VALUES(2, 'Service Chair', 5);
 
 INSERT INTO Officer
 VALUES(3, 'Philanthropy Chair', 2);
+
+INSERT INTO ServiceEvent
+VALUES(1, 'Cleveland Food Bank', '2015-10-22');
+
+INSERT INTO ServiceEvent
+VALUES(2, 'Saturday Tutoring', '2015-11-07');
+
+INSERT INTO AttendsService
+VALUES(1, 1, 3, 'New');
+
+INSERT INTO AttendsService
+VALUES(2, 1, 1, 'New');
+
+INSERT INTO AttendsService
+VALUES(2, 2, 2, 'New');
