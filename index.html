@@ -1,6 +1,6 @@
 <html>
 <h1>EECS 341 Final Project</h1>
-<h3>Adam Boe, Darian Pazgani-Lorenzo<h3>
+<h3>Adam Boe, Darian Pazgan-Lorenzo<h3>
 
 <h2><a href="tables.php">View Tables</a></h2>
 
@@ -9,7 +9,7 @@
 Member: 
 <?PHP
 include('dbconnect.php');
-$query = "SELECT i_id, name FROM Individual";
+$query = "SELECT iid, name FROM Individual";
 $result = mysqli_query($link, $query);
 echo '<select name="member">';
 while($row = mysqli_fetch_array($result)) {
@@ -25,7 +25,7 @@ echo '</select>';
 Member: 
 <?PHP
 include('dbconnect.php');
-$query = "SELECT i_id, title FROM Officer";
+$query = "SELECT iid, title FROM Officer";
 $result = mysqli_query($link, $query);
 echo '<select name="officer">';
 while($row = mysqli_fetch_array($result)) {
