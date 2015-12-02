@@ -27,6 +27,24 @@ else {
 			echo "Error connecting to database.<br>";
 		}
 	}
+	if ($type == "philanthropy") {
+		$iid = mysqli_real_escape_string($link, stripslashes($_POST['iid']));
+		$pid = mysqli_real_escape_string($link, stripslashes($_POST['pid']));
+		if ($iid && $pid) {
+			$query = "INSERT INTO AttendsPhilanthropy (iid, pid, approval_status) " .
+					 "VALUES($iid, $pid, \"New\")";
+			$result = mysqli_query($link, $query);
+			if ($result) {
+				echo "Successfully submitted hours.<br>";
+			}			
+			else {
+				echo "Error submitting hours.<br>";
+			}
+		}
+		else {
+			echo "Error connecting to database.<br>";
+		}
+	}
 }
 
 ?>

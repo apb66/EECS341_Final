@@ -72,6 +72,46 @@ else {
 			}
 		}
 	}
+	elseif ($position == "Philanthropy Chair") {
+		$query = "SELECT I.iid, P.pid " .
+				 "FROM Individual I, PhilanthropyEvent P, AttendsPhilanthropy A " .
+				 "WHERE I.iid = A.iid " .
+					"AND P.pid = A.pid " .
+					"AND A.approval_status = \"New\"";
+		$result = mysqli_query($link, $query);
+		if ($result) {
+			$success = 1;
+			while ($row = mysqli_fetch_assoc($result)) {
+				$status = mysqli_real_escape_string($link, stripslashes($_POST[$row['iid'] . ',' . $row['pid']]));
+				if (!is_null($status)) {
+					if ($status == "approved") {
+						$query = "UPDATE AttendsPhilanthropy " .
+								 "SET approval_status=\"Approved\" " .
+								 "WHERE iid=" . $row['iid'] . " AND pid=" . $row['pid'];
+						$result2 = mysqli_query($link, $query);
+						if (!$result) {
+							$success = 0;
+						}
+					}
+					elseif ($status == "rejected") {
+						$query = "UPDATE AttendsPhilanthropy " .
+								 "SET approval_status=\"Rejected\" " .
+								 "WHERE iid=" . $row['iid'] . " AND pid=" . $row['pid'];
+						$result2 = mysqli_query($link, $query);
+						if (!$result) {
+							$success = 0;
+						}
+					}
+				}
+			}
+			if ($success) {
+				echo "Successfully updated database.<br>";
+			}
+			else {
+				echo "Error updating database.<br>";
+			}
+		}
+	}
 }
 
 ?>

@@ -6,29 +6,27 @@ if (!$iid) {
 	echo "Error getting POST data.<br>";
 }
 else {
-	$query = "SELECT sid, event_name, date FROM ServiceEvent";
+	$query = "SELECT pid, event_name, date FROM PhilanthropyEvent";
 	$result = mysqli_query($link, $query);
 	if (!$result) {
 		echo "Error contacting database.<br>";
 	}
 	elseif (mysqli_num_rows($result) < 1) {
-		echo "No Service Events have occured.";
+		echo "No Philanthropy Events have occured.";
 	} 
 	else {
 		echo '<form action="member-submit.php" method="post">';
 		echo '<input name="iid" type="hidden" value="' . $iid . '"</input>';
-		echo '<input name="type" type="hidden" value="service"</input>';
+		echo '<input name="type" type="hidden" value="philanthropy"</input>';
 		echo "Event: ";
-		echo '<select name="sid">';
+		echo '<select name="pid">';
 		while ($row = mysqli_fetch_assoc($result)) {
-			echo '<option value="' . $row['sid'] . '">' . $row['event_name'] . ' [' . $row['date'] . ']</option>';
+			echo '<option value="' . $row['pid'] . '">' . $row['event_name'] . ' [' . $row['date'] . ']</option>';
 		}
 		echo '</select>';
 		echo "<br>";
-		echo "Hours: ";
-		echo '<input name="hours" type="text">';
 		echo "<br>";
-		echo '<button type="submit">Submit Service</button>';
+		echo '<button type="submit">Submit Philanthropy</button>';
 		echo "</form>";
 	}
 }

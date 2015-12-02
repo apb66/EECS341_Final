@@ -13,7 +13,7 @@ if (!$id || !$name || !$email || !$bond || !$major || !$graduate) {
 else {
 	$query = "UPDATE Individual " .
 			 "SET name=\"$name\", email=\"$email\", bond_number=$bond, major=\"$major\", graduation_date=\"$graduate\" " .
-			 "WHERE i_id=$id";
+			 "WHERE iid=$id";
 	$result = mysqli_query($link, $query);
 	if ($result) {
 		echo "Successfully updated database.<br>";

@@ -138,3 +138,15 @@ VALUES(2, 1, 1, 'New');
 
 INSERT INTO AttendsService
 VALUES(2, 2, 2, 'New');
+
+INSERT INTO PhilanthropyEvent
+VALUES(1, 'DG Anchorsplash', '2015-10-12');
+
+INSERT INTO PhilanthropyEvent
+VALUES(2, 'Pi a Phi', '2015-11-17');
+
+INSERT INTO AttendsPhilanthropy
+VALUES(3, 1, 'New');
+
+INSERT INTO AttendsPhilanthropy
+VALUES(1, 2, 'New');

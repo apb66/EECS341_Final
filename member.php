@@ -33,39 +33,51 @@ else {
 	
 	echo '<h2>Requirements</h2>';
 	
-	echo 'dues: ' . $row['dues'];
+	echo 'dues: $' . $row['dues'];
 	echo '<br>';
 	
 	echo '<form action="member-service.php" method="post">';
 	echo '<input name="iid" type="hidden" value="' . $iid . '"/>';
-	$query = "SELECT SUM(hours) AS sum " .
-			 "FROM AttendsService " .
-			 "WHERE iid=" . $iid . " AND approval_status='Approved'";
+	$query = "SELECT * " .
+			 "FROM ServiceHours " .
+			 "WHERE iid=" . $iid;
 	$result = mysqli_query($link, $query);
 	$service = 0;
 	if ($result) {
 		$row = mysqli_fetch_assoc($result);
-		if ($row['sum'] != NULL) {
-			$service = $row['sum'];
+		if ($row['SUM(hours)'] != NULL) {
+			$service = $row['SUM(hours)'];
 		}
 	}
-	echo 'service: ' . $service;
+	if ($service == 1) {
+		echo 'service: ' . $service . ' hour ';
+	}
+	else {
+		echo 'service: ' . $service . ' hours ';
+	}
+	
 	echo '<button type="submit">Submit Service</button>';
 	echo '</form>';
 	
 	echo '<form action="member-philanthropy.php" method="post">';
-	$query = "SELECT COUNT(*) AS total " .
-			 "FROM AttendsPhilanthropy " .
-			 "WHERE i_id=" . $iid . " AND approval_status='Approved'";
+	echo '<input name="iid" type="hidden" value="' . $iid . '"/>';
+	$query = "SELECT * " .
+			 "FROM PhilanthropyAmount " .
+			 "WHERE iid=" . $iid;
 	$result = mysqli_query($link, $query);
 	$philanthropy = 0;
 	if ($result) {
 		$row = mysqli_fetch_assoc($result);
-		if ($row['total'] != NULL) {
-			$philanthropy = $row['total'];
+		if ($row['COUNT(*)'] != NULL) {
+			$philanthropy = $row['COUNT(*)'];
 		}
 	}
-	echo 'philanthropy: ' . $philanthropy;
+	if ($philanthropy == 1) {
+		echo 'philanthropy: ' . $philanthropy . ' event ';
+	}
+	else {
+		echo 'philanthropy: ' . $philanthropy . ' events ';
+	}
 	echo '<button type="submit">Submit Philanthropy</button>';
 	echo '</form>';
 }
