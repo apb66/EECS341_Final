@@ -135,6 +135,37 @@ else {
 			}
 		}
 	}
+	elseif ($position == "Secretary") {
+		$meeting = mysqli_real_escape_string($link, stripslashes($_POST['meeting']));
+		if (!is_null($meeting)) {
+			$query = "SELECT iid FROM Individual";
+			$result = mysqli_query($link, $query);
+			if ($result) {
+				$success = 1;
+				while ($row = mysqli_fetch_assoc($result)) {
+					$status = mysqli_real_escape_string($link, stripslashes($_POST[$row['iid']]));
+					if (!is_null($status)) {
+						if ($status == "present") {
+							$query = "INSERT INTO AttendsMeeting VALUES(" . $row['iid'] . ", " . $meeting . ")";
+							$result2 = mysqli_query($link, $query);
+							if (!$result) {
+								$success = 0;
+							}
+						}
+					}
+				}
+				if ($success) {
+					echo "Successfully updated database.<br>";
+				}
+				else {
+					echo "Error updating database.<br>";
+				}
+			}
+		}
+		else {
+			echo "Error getting POST";
+		}
+	}
 }
 
 ?>

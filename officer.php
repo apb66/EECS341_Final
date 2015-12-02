@@ -152,7 +152,7 @@ else {
 						 ">= (" .
 						 "SELECT O.requirement " .
 						 "FROM Officer O " . 
-						 "WHERE O.title = 'President') ";
+						 "WHERE O.title = 'Secretary') ";
 			$result = mysqli_query($link, $query);
 			if (!empty($result) && mysqli_num_rows($result) > 0) {
 				echo "<table>";
@@ -215,7 +215,7 @@ else {
 							 ">= (" .
 							 "SELECT O.requirement " .
 							 "FROM Officer O " . 
-							 "WHERE O.title = 'President'))";
+							 "WHERE O.title = 'Secretary'))";
 			$result = mysqli_query($link, $query);
 			if (!empty($result) && mysqli_num_rows($result) > 0) {
 				echo "<table>";
@@ -269,6 +269,46 @@ else {
 			}
 			else {
 				echo "All members met the requirements.<br>";
+			}
+		}
+		elseif ($row['title'] == "Secretary") {
+			$query = "SELECT * FROM Meeting";
+			$result = mysqli_query($link, $query);
+			if (!empty($result) && mysqli_num_rows($result) > 0) {
+				echo "Meeting: ";
+				echo '<select name="meeting">';
+				while ($row = mysqli_fetch_assoc($result)) {
+					echo '<option value="' . $row['mid'] . '">' . $row['date'] . '</option>';
+				}
+				echo '</select>';
+				$query = "SELECT iid, name FROM Individual";
+				$result = mysqli_query($link, $query);
+				if (!empty($result) && mysqli_num_rows($result) > 0) {
+					echo "<table>";
+					echo "<thead>";
+					echo "<tr>";
+					echo "<td><b>Name</b></td>";
+					echo "<td><b>Status</b></td>";
+					echo "</tr>";
+					echo "</thead>";
+					while ($row = mysqli_fetch_assoc($result)) {
+						echo "<tr>";
+						echo '<td>' . $row['name'] . '</td>';
+						echo '<td>';
+						echo '<input name="' . $row['iid'] . '" type="radio" value="present">Present</input>';
+						echo '<input name="' . $row['iid'] . '" type="radio" value="absent">Absent</input>';
+						echo '</td>';
+						echo "</tr>";
+					}
+					echo "</table>";
+					echo '<button type="submit">Submit Attendance</button>';
+				}
+				else {
+					echo "No members.";
+				}				
+			}
+			else {
+				echo "No meetings held.<br>";
 			}
 		}
 		echo "</form>";
