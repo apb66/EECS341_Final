@@ -112,6 +112,29 @@ else {
 			}
 		}
 	}
+	elseif ($position == "President") {
+		$query = "SELECT iid FROM Officer";
+		$result = mysqli_query($link, $query);
+		if ($result) {
+			$success = 1;
+			while ($row = mysqli_fetch_assoc($result)) {
+				$req = mysqli_real_escape_string($link, stripslashes($_POST[$row['iid']]));
+				if (!is_null($req)) {
+					$query = "UPDATE Officer SET requirement=" . $req . " WHERE iid=" . $row['iid'];
+					$result2 = mysqli_query($link, $query);
+					if (!$result) {
+						$success = 0;
+					}
+				}
+			}
+			if ($success) {
+				echo "Successfully updated database.<br>";
+			}
+			else {
+				echo "Error updating database.<br>";
+			}
+		}
+	}
 }
 
 ?>
