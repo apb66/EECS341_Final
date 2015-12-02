@@ -34,7 +34,7 @@ else {
 			}
 		}
 		elseif ($row['title'] == "Service Chair") {
-			$query = "SELECT I.iid, I.name, S.sid, S.event_name, S.date " .
+			$query = "SELECT I.iid, I.name, S.sid, S.event_name, S.date, A.hours " .
 					 "FROM Individual I, ServiceEvent S, AttendsService A " .
 					 "WHERE I.iid = A.iid " .
 						"AND S.sid = A.sid " .
@@ -47,6 +47,7 @@ else {
 				echo "<td><b>Name</b></td>";
 				echo "<td><b>Event</b></td>";
 				echo "<td><b>Date</b></td>";
+				echo "<td><b>Hours</b></td>";
 				echo "<td><b>Status</b></td>";
 				echo "</tr>";
 				echo "</thead>";
@@ -55,6 +56,7 @@ else {
 					echo '<td>' . $row['name'] . '</td>';
 					echo '<td>' . $row['event_name'] . '</td>';
 					echo '<td>' . $row['date'] . '</td>';
+					echo '<td>' . $row['hours'] . '</td>';
 					echo '<td>';
 					echo '<input name="' . $row['iid'] . ',' . $row['sid'] . '" type="radio" value="approved">Approve</input>';
 					echo '<input name="' . $row['iid'] . ',' . $row['sid'] . '" type="radio" value="rejected">Reject</input>';

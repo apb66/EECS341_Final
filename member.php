@@ -53,7 +53,7 @@ else {
 		$meetings = $row['meetings'];
 	}
 	echo $meetings;
-	$query = "SELECT requirement FROM Officer WHERE title='President'";
+	$query = "SELECT requirement FROM Officer WHERE title='Secretary'";
 	$result = mysqli_query($link, $query);
 	if ($result && !empty($result) && mysqli_num_rows($result) > 0) {
 		$row = mysqli_fetch_assoc($result);
