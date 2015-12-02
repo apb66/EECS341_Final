@@ -89,13 +89,13 @@ CREATE TABLE Officer
 DESC Officer;
 
 CREATE VIEW ServiceHours AS
-SELECT iid, SUM(hours)
+SELECT iid, SUM(hours) AS total_hours
 FROM AttendsService
 WHERE approval_status = 'Approved'
 GROUP BY iid;
 
 CREATE VIEW PhilanthropyAmount AS
-SELECT iid, COUNT(*)
+SELECT iid, COUNT(*) AS total_events
 FROM AttendsPhilanthropy
 WHERE approval_status = 'Approved'
 GROUP BY iid;
