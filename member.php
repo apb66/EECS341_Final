@@ -38,15 +38,15 @@ else {
 	
 	echo '<form action="member-service.php" method="post">';
 	echo '<input name="iid" type="hidden" value="' . $iid . '"/>';
-	$query = "SELECT * " .
+	$query = "SELECT total_hours " .
 			 "FROM ServiceHours " .
 			 "WHERE iid=" . $iid;
 	$result = mysqli_query($link, $query);
 	$service = 0;
 	if ($result) {
 		$row = mysqli_fetch_assoc($result);
-		if ($row['SUM(hours)'] != NULL) {
-			$service = $row['SUM(hours)'];
+		if ($row['total_hours'] != NULL) {
+			$service = $row['total_hours'];
 		}
 	}
 	if ($service == 1) {
@@ -61,15 +61,15 @@ else {
 	
 	echo '<form action="member-philanthropy.php" method="post">';
 	echo '<input name="iid" type="hidden" value="' . $iid . '"/>';
-	$query = "SELECT * " .
+	$query = "SELECT total_events " .
 			 "FROM PhilanthropyAmount " .
 			 "WHERE iid=" . $iid;
 	$result = mysqli_query($link, $query);
 	$philanthropy = 0;
 	if ($result) {
 		$row = mysqli_fetch_assoc($result);
-		if ($row['COUNT(*)'] != NULL) {
-			$philanthropy = $row['COUNT(*)'];
+		if ($row['total_events'] != NULL) {
+			$philanthropy = $row['total_events'];
 		}
 	}
 	if ($philanthropy == 1) {
