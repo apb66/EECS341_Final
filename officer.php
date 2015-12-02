@@ -103,6 +103,140 @@ else {
 				echo "No philanthropy events submitted.<br>";
 			}
 		}
+		elseif ($row['title'] == "President") {
+			$query = "SELECT I.name, I.dues, S.total_hours, P.total_events, COUNT(A.mid) AS meetings " .
+					 "FROM Individual I, ServiceHours S, PhilanthropyAmount P, AttendsMeeting A " .
+					 "WHERE I.iid = S.iid AND I.iid = P.iid AND I.iid = A.iid " .
+					 "AND I.dues >= (" .
+						 "SELECT O.requirement " .
+						 "FROM Officer O " . 
+						 "WHERE O.title = 'Treasurer') " .
+					 "AND S.total_hours >= (" .
+						 "SELECT O.requirement " .
+						 "FROM Officer O " . 
+						 "WHERE O.title = 'Service Chair') " .
+					 "AND P.total_events >= (" .
+						 "SELECT O.requirement " .
+						 "FROM Officer O " . 
+						 "WHERE O.title = 'Philanthropy Chair') " .
+					 "AND (" .
+						 "SELECT COUNT(A.mid) " .
+						 "FROM AttendsMeeting M2 " .
+						 "WHERE I.iid = M2.iid) " .
+						 ">= (" .
+						 "SELECT O.requirement " .
+						 "FROM Officer O " . 
+						 "WHERE O.title = 'President') ";
+			$result = mysqli_query($link, $query);
+			if (!empty($result) && mysqli_num_rows($result) > 0) {
+				echo "<h2>Members Passing Accountability System</h2>";
+				echo "<table>";
+				echo "<thead>";
+				echo "<tr>";
+				echo "<td><b>Name</b></td>";
+				echo "<td><b>Dues</b></td>";
+				echo "<td><b>Service</b></td>";
+				echo "<td><b>Philanthropy</b></td>";
+				echo "<td><b>Meetings</b></td>";
+				echo "</tr>";
+				echo "</thead>";
+				while ($row = mysqli_fetch_assoc($result)) {
+					echo "<tr>";
+					echo '<td>' . $row['name'] . '</td>';
+					echo '<td>' . $row['dues'] . '</td>';
+					echo '<td>' . $row['total_hours'] . '</td>';
+					echo '<td>' . $row['total_events'] . '</td>';
+					echo '<td>' . $row['meetings'] . '</td>';
+					echo '</td>';
+					echo "</tr>";
+				}
+				echo "</table>";
+			}
+			$query = "SELECT I.iid, I.name, I.dues " .
+					 "FROM Individual I " .
+					 "WHERE I.iid NOT IN (" .
+						 "SELECT I.iid " .
+						 "FROM Individual I, ServiceHours S, PhilanthropyAmount P, AttendsMeeting A " .
+						 "WHERE I.iid = S.iid AND I.iid = P.iid AND I.iid = A.iid " .
+						 "AND I.dues >= (" .
+							 "SELECT O.requirement " .
+							 "FROM Officer O " . 
+							 "WHERE O.title = 'Treasurer') " .
+						 "AND S.total_hours >= (" .
+							 "SELECT O.requirement " .
+							 "FROM Officer O " . 
+							 "WHERE O.title = 'Service Chair') " .
+						 "AND P.total_events >= (" .
+							 "SELECT O.requirement " .
+							 "FROM Officer O " . 
+							 "WHERE O.title = 'Philanthropy Chair') " .
+						 "AND (" .
+							 "SELECT COUNT(A.mid) " .
+							 "FROM AttendsMeeting M2 " .
+							 "WHERE I.iid = M2.iid) " .
+							 ">= (" .
+							 "SELECT O.requirement " .
+							 "FROM Officer O " . 
+							 "WHERE O.title = 'President'))";
+			$result = mysqli_query($link, $query);
+			if (!empty($result) && mysqli_num_rows($result) > 0) {
+				echo "<h2>Members Failing Accountability System</h2>";
+				echo "<table>";
+				echo "<thead>";
+				echo "<tr>";
+				echo "<td><b>Name</b></td>";
+				echo "<td><b>Dues</b></td>";
+				echo "<td><b>Service</b></td>";
+				echo "<td><b>Philanthropy</b></td>";
+				echo "<td><b>Meetings</b></td>";
+				echo "</tr>";
+				echo "</thead>";
+				while ($row = mysqli_fetch_assoc($result)) {
+					$hours = 0;
+					$query = "SELECT S.total_hours " .
+							 "FROM ServiceHours S " .
+							 "WHERE S.iid = " . $row['iid'];
+					$result2 = mysqli_query($link, $query);
+					if ($result2) {
+						if (mysqli_num_rows($result2) > 0) {
+							$row2 = mysqli_fetch_assoc($result2);
+							$hours = $row2['total_hours'];
+						}
+					}
+					$events = 0;
+					$query = "SELECT P.total_events " .
+							 "FROM PhilanthropyAmount P " .
+							 "WHERE p.iid = " . $row['iid'];
+					$result2 = mysqli_query($link, $query);
+					if ($result2) {
+						if (mysqli_num_rows($result2) > 0) {
+							$row2 = mysqli_fetch_assoc($result2);
+							$events = $row2['total_events'];
+						}
+					}
+					$meetings = 0;
+					$query = "SELECT COUNT(M.mid) AS meetings " .
+							 "FROM AttendsMeeting M " .
+							 "WHERE M.iid = " . $row['iid'];
+					$result2 = mysqli_query($link, $query);
+					if ($result2) {
+						if (mysqli_num_rows($result2) > 0) {
+							$row2 = mysqli_fetch_assoc($result2);
+							$meetings = $row2['meetings'];
+						}
+					}
+					echo "<tr>";
+					echo '<td>' . $row['name'] . '</td>';
+					echo '<td>' . $row['dues'] . '</td>';
+					echo '<td>' . $hours . '</td>';
+					echo '<td>' . $events . '</td>';
+					echo '<td>' . $meetings . '</td>';
+					echo '</td>';
+					echo "</tr>";
+				}
+				echo "</table>";
+			}
+		}
 		echo "</form>";
 	}
 }

@@ -124,6 +124,9 @@ VALUES(2, 'Service Chair', 5);
 INSERT INTO Officer
 VALUES(3, 'Philanthropy Chair', 2);
 
+INSERT INTO Officer
+VALUES(4, 'President', 2);
+
 INSERT INTO ServiceEvent
 VALUES(1, 'Cleveland Food Bank', '2015-10-22');
 
@@ -134,7 +137,7 @@ INSERT INTO AttendsService
 VALUES(1, 1, 3, 'New');
 
 INSERT INTO AttendsService
-VALUES(2, 1, 1, 'New');
+VALUES(2, 1, 5, 'Approved');
 
 INSERT INTO AttendsService
 VALUES(2, 2, 2, 'New');
@@ -150,3 +153,24 @@ VALUES(3, 1, 'New');
 
 INSERT INTO AttendsPhilanthropy
 VALUES(1, 2, 'New');
+
+INSERT INTO AttendsPhilanthropy
+VALUES(2, 1, 'Approved');
+
+INSERT INTO AttendsPhilanthropy
+VALUES(2, 2, 'Approved');
+
+INSERT INTO Meeting
+VALUES(1, '2015-09-24');
+
+INSERT INTO Meeting
+VALUES(2, '2015-10-09');
+
+INSERT INTO AttendsMeeting
+VALUES(2, 1);
+
+INSERT INTO AttendsMeeting
+VALUES(2, 2);
+
+INSERT INTO AttendsMeeting
+VALUES(3, 1);
