@@ -8,11 +8,11 @@ if (!$member) {
 else {
 	echo '<h2>Personal Information</h2>';
 	echo '<form action="member-update.php" method="post">';
-	$query = 'SELECT * FROM Individual WHERE i_id="' . $member . '"';
+	$query = 'SELECT * FROM Individual WHERE iid="' . $member . '"';
 	$result = mysqli_query($link, $query);
 	$row = mysqli_fetch_assoc($result);
-	$i_id = $row['i_id'];
-	echo '<input name="id" type="hidden" value="' . $i_id . '"/>';
+	$iid = $row['iid'];
+	echo '<input name="id" type="hidden" value="' . $iid . '"/>';
 	echo 'name: ';
 	echo '<input name="name" type="text" value="' . $row['name'] . '"/>';
 	echo '<br/>';
@@ -32,36 +32,52 @@ else {
 	echo '</form>';
 	
 	echo '<h2>Requirements</h2>';
-	echo 'dues: ' . $row['dues'];
+	
+	echo 'dues: $' . $row['dues'];
 	echo '<br>';
+	
 	echo '<form action="member-service.php" method="post">';
-	$query = "SELECT SUM(hours) AS sum " .
-			 "FROM AttendsService " .
-			 "WHERE i_id=" . $i_id . " AND approval_status='Approved'";
+	echo '<input name="iid" type="hidden" value="' . $iid . '"/>';
+	$query = "SELECT * " .
+			 "FROM ServiceHours " .
+			 "WHERE iid=" . $iid;
 	$result = mysqli_query($link, $query);
 	$service = 0;
 	if ($result) {
 		$row = mysqli_fetch_assoc($result);
-		if ($row['sum'] != NULL) {
-			$service = $row['sum'];
+		if ($row['SUM(hours)'] != NULL) {
+			$service = $row['SUM(hours)'];
 		}
 	}
-	echo 'service: ' . $service;
+	if ($service == 1) {
+		echo 'service: ' . $service . ' hour ';
+	}
+	else {
+		echo 'service: ' . $service . ' hours ';
+	}
+	
 	echo '<button type="submit">Submit Service</button>';
 	echo '</form>';
+	
 	echo '<form action="member-philanthropy.php" method="post">';
-	$query = "SELECT COUNT(*) AS total " .
-			 "FROM AttendsPhilanthropy " .
-			 "WHERE i_id=" . $i_id . " AND approval_status='Approved'";
+	echo '<input name="iid" type="hidden" value="' . $iid . '"/>';
+	$query = "SELECT * " .
+			 "FROM PhilanthropyAmount " .
+			 "WHERE iid=" . $iid;
 	$result = mysqli_query($link, $query);
 	$philanthropy = 0;
 	if ($result) {
 		$row = mysqli_fetch_assoc($result);
-		if ($row['total'] != NULL) {
-			$philanthropy = $row['total'];
+		if ($row['COUNT(*)'] != NULL) {
+			$philanthropy = $row['COUNT(*)'];
 		}
 	}
-	echo 'philanthropy: ' . $philanthropy;
+	if ($philanthropy == 1) {
+		echo 'philanthropy: ' . $philanthropy . ' event ';
+	}
+	else {
+		echo 'philanthropy: ' . $philanthropy . ' events ';
+	}
 	echo '<button type="submit">Submit Philanthropy</button>';
 	echo '</form>';
 }
