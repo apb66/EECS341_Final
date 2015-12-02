@@ -34,7 +34,31 @@ else {
 	echo '<h2>Requirements</h2>';
 	
 	echo 'dues: $' . $row['dues'];
+	$query = "SELECT requirement FROM Officer WHERE title='Treasurer'";
+	$result = mysqli_query($link, $query);
+	if ($result && !empty($result) && mysqli_num_rows($result) > 0) {
+		$row = mysqli_fetch_assoc($result);
+		echo " / $" . $row['requirement'];
+	}
 	echo '<br>';
+	
+	echo "meetings: ";
+	$meetings = 0;
+	$query = "SELECT COUNT(A.mid) AS meetings " .
+			 "FROM AttendsMeeting A " .
+			 "WHERE A.iid = " . $iid;
+	$result = mysqli_query($link, $query);
+	if ($result && !empty($result) && mysqli_num_rows($result) > 0) {
+		$row = mysqli_fetch_assoc($result);
+		$meetings = $row['meetings'];
+	}
+	echo $meetings;
+	$query = "SELECT requirement FROM Officer WHERE title='President'";
+	$result = mysqli_query($link, $query);
+	if ($result && !empty($result) && mysqli_num_rows($result) > 0) {
+		$row = mysqli_fetch_assoc($result);
+		echo " / " . $row['requirement'];
+	}
 	
 	echo '<form action="member-service.php" method="post">';
 	echo '<input name="iid" type="hidden" value="' . $iid . '"/>';
@@ -49,11 +73,18 @@ else {
 			$service = $row['total_hours'];
 		}
 	}
+	echo 'service: ' . $service;
+	$query = "SELECT requirement FROM Officer WHERE title='Service Chair'";
+	$result = mysqli_query($link, $query);
+	if ($result && !empty($result) && mysqli_num_rows($result) > 0) {
+		$row = mysqli_fetch_assoc($result);
+		echo " / " . $row['requirement'];
+	}
 	if ($service == 1) {
-		echo 'service: ' . $service . ' hour ';
+		echo ' hour ';
 	}
 	else {
-		echo 'service: ' . $service . ' hours ';
+		echo ' hours ';
 	}
 	
 	echo '<button type="submit">Submit Service</button>';
@@ -72,11 +103,18 @@ else {
 			$philanthropy = $row['total_events'];
 		}
 	}
+	echo 'philanthropy: ' . $philanthropy;
+	$query = "SELECT requirement FROM Officer WHERE title='Philanthropy Chair'";
+	$result = mysqli_query($link, $query);
+	if ($result && !empty($result) && mysqli_num_rows($result) > 0) {
+		$row = mysqli_fetch_assoc($result);
+		echo " / " . $row['requirement'];
+	}
 	if ($philanthropy == 1) {
-		echo 'philanthropy: ' . $philanthropy . ' event ';
+		echo ' event ';
 	}
 	else {
-		echo 'philanthropy: ' . $philanthropy . ' events ';
+		echo ' events ';
 	}
 	echo '<button type="submit">Submit Philanthropy</button>';
 	echo '</form>';
