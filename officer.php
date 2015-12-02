@@ -6,7 +6,7 @@ if (!$officer) {
 	echo "Error getting POST data.<br>";
 }
 else {
-	$query = "SELECT title FROM Officer WHERE iid=$officer";
+	$query = "SELECT title FROM Officer WHERE i_id=$officer";
 	$result = mysqli_query($link, $query);
 	$row = mysqli_fetch_assoc($result);
 	if ($row > 0) {
@@ -20,13 +20,13 @@ else {
 			echo "<td><b>Due</b></td>";
 			echo "</tr>";
 			echo "</thead>";
-			$query = "SELECT iid, name, dues FROM Individual";
+			$query = "SELECT i_id, name, dues FROM Individual";
 			$result = mysqli_query($link, $query);
 			if ($result) {
 				while ($row = mysqli_fetch_assoc($result)) {
 					echo "<tr>";
 					echo '<td>' . $row['name'] . ':</td>';
-					echo '<td><input name="' . $row['iid'] . '" type="text" value="' . $row['dues'] . '"</input><td>';
+					echo '<td><input name="' . $row['i_id'] . '" type="text" value="' . $row['dues'] . '"</input><td>';
 					echo "</tr>";
 				}
 			}
